@@ -1,0 +1,21 @@
+服务文件
+
+Nginx.service
+
+[Unit]
+Description=Nginx Service
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/usr/local/nginx/logs/nginx.pid
+ExecStartPre=/usr/local/nginx/sbin/nginx -t
+ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+TimeoutStartSec=30
+PrivateTmp=True
+
+[Install]
+WantedBy=multi-user.target
+
