@@ -19,3 +19,5 @@ PrivateTmp=True
 [Install]
 WantedBy=multi-user.target
 
+systemctl daemon-reload
+systemctl enable nginx
