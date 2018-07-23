@@ -1,0 +1,32 @@
+服务文件
+
+Tomcat.service
+#需要在catalina.sh中配置
+	JAVA_HOME JRE_HOME CATALINA_PID (JAVA_OPTS)
+example:
+	JAVA_OPTS="-server -Xms2g -Xmx2g -Dfile.encoding=UTF-8 -XX:+DisableExplicitGC -XX:+PrintGCDetails -XX:+PrintGCApplicationStoppedTime -XX:+PrintGCApplicationConcurrentTime -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -Xloggc:/usr/local/tomcat/logs/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/tomcat/logs/  -XX:-OmitStackTraceInFastThrow"
+
+	CATALINA_PID="/usr/local/tomcat/logs/tomcat.pid"
+	JAVA_HOME=/usr/local/java
+	JRE_HOME=/usr/local/java/jre
+
+
+
+
+[Unit]
+Description=Tomcat Service
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/usr/local/tomcat/logs/tomcat.pid
+ExecStart=/usr/local/tomcat/bin/catalina.sh start
+ExecStop=/usr/local/tomcat/bin/catalina.sh stop  60 -force
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl daemon-reload
+systemctl enable tomcat
