@@ -1,0 +1,2 @@
+sys:表示systemctl模式 存放于/usr/lig/systemd/system
+init:表示service模式 存放于/etc/init.ds
