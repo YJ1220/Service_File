@@ -1,0 +1,32 @@
+服务文件
+
+Zookeeper.service 使用非root用户
+配置文件为zoo.cfg
+需要在zkEnv.sh 中之指定
+	#ZOO_LOG_DIR也可以在service中指定Environment=ZOO_LOG_DIR=/home/elk/zk/bin/；未指定的服务无法启动zookeeper.out Permission denied
+	ZOO_LOG_DIR=/home/elk/zk/bin/
+	#指定JAVA的环境变量;或者ln -sv /usr/local/java/bin/java /usr/bin/java
+	JAVA_HOME=/usr/local/java
+	JRE_HOME=/usr/local/java/jre
+	CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+
+
+[Unit]
+Description=ZooKeeper Service
+After=network.target
+
+[Service]
+Type=forking
+User=elk
+Group=elk
+PIDFile=/home/elk/zk/data/zookeeper_server.pid
+ExecStart=/home/elk/zk/bin/zkServer.sh start 
+ExecStop=/home/elk/zk/bin/zkServer.sh stop
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl daemon-reload
+systemctl enable nginx

@@ -1,2 +1,3 @@
 sys:表示systemctl模式 存放于/usr/lig/systemd/system
+    需要调用JAVA环境变量的;建议在启动脚本内指定环境变量
 init:表示service模式 存放于/etc/init.ds
